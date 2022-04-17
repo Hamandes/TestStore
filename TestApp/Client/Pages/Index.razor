@@ -1,0 +1,23 @@
+﻿@page "/"
+@using TestApp.Client.CustomComponents
+
+<h2>Products</h2>
+<LoadingComponent IsLoading="@IsLoading"></LoadingComponent>
+@if (this.AllProducts != null)
+{
+    for (int iPage = 0; iPage < this.TotalPages; iPage++)
+    {
+        var pageItems = this.AllProducts.Skip(iPage * 2).Take(2);
+        <div class="card-group">
+            @foreach (var singlePageItem in pageItems)
+            {
+                <ProductCard CardTitle="@singlePageItem.Name"
+                           CardBodyText="@singlePageItem.Price.ToString()">
+                    <Image>
+                        <img src="@singlePageItem.ImageUrl" class="card-img-top" alt="..." style="height:300px; width:300px;">
+                    </Image>
+                </ProductCard>
+            }
+        </div>
+    }
+}
